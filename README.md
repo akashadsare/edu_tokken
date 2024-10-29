@@ -1,0 +1,2 @@
+# edu_tokken
+ A Decentralized Learning Management System (DLMS) is an innovative educational platform that leverages blockchain technology to facilitate the administration, tracking, and delivery of educational courses and training programs. Unlike traditional learning management systems, which are often centralized and controlled by a single entity, a DLMS operates on a decentralized model, empowering users with greater control over their learning experiences and data. 
