@@ -36,6 +36,7 @@ const Profile = ({ token, setView }) => {
             <p>Tokens Balance: {profileData.tokens}</p>
             <p>Completed Courses: {profileData.completedCourses.join(', ')}</p>
             <button onClick={handleLogout}>Logout</button>
+            <button onclick="fetchAccountBalance('0x1Efe5a321997d4bA7e7A2D9CA8D56F0201cD40B3')">Get Balance</button>
         </div>
     );
 };
