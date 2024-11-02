@@ -1,58 +1,82 @@
+// src/components/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './styles.css';
 
-const Login = ({ setToken, setView }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // State to handle error messages
-    const [loading, setLoading] = useState(false); // State to manage loading status
+const Login = ({ setToken, setUser }) => {
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        setLoading(true); // Set loading to true while waiting for response
-        setError(''); // Clear previous error messages
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
 
         try {
-            const response = await axios.post('http://localhost:5000/login', { username, password });
-            setToken(response.data.token); // Store the token
-            alert('Login successful!');
-            setView('profile'); // Switch to profile view after successful login
-        } catch (error) {
-            // Handle error response gracefully
-            if (error.response && error.response.data) {
-                setError(error.response.data.message || 'Login failed. Please try again.'); // Use a specific error message if available
-            } else {
-                setError('An unexpected error occurred.'); // Fallback error message
-            }
-        } finally {
-            setLoading(false); // Reset loading state regardless of success or failure
+            const response = await axios.post('http://localhost:5000/login', formData);
+            const { token, user } = response.data;
+            
+            localStorage.setItem('token', token);
+            setToken(token);
+            setUser(user);
+            navigate('/dashboard'); // Navigate to dashboard after successful login
+        } catch (err) {
+            setError(err.response?.data?.message || 'Login failed. Please try again.');
         }
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}> {/* Use form submission for better accessibility */}
-                <input 
-                    type="text" 
-                    placeholder="Username" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
-                    required // Ensure the field is filled before submission
-                />
-                <input 
-                    type="password" 
-                    placeholder="Password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    required // Ensure the field is filled before submission
-                />
-                <button type="submit" disabled={loading}> {/* Disable button while loading */}
-                    {loading ? 'Logging in...' : 'Login'} {/* Show loading text */}
-                </button>
+        <div className="login-container">
+            <form onSubmit={handleSubmit} className="login-form">
+                <h2>Login to Your Account</h2>
+                {error && <div className="error-message">{error}</div>}
+                
+                <div className="form-group">
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <button type="submit" className="login-button">Login</button>
+                
+                <p className="register-link">
+                    Don't have an account?{' '}
+                    <button 
+                        type="button"
+                        className="link-button"
+                        onClick={() => navigate('/register')}
+                    >
+                        Register here
+                    </button>
+                </p>
             </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message if exists */}
-            <p>Don't have an account? <button onClick={() => setView('register')}>Register</button></p>
         </div>
     );
 };

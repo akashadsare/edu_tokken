@@ -1,0 +1,70 @@
+.content-marketplace {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .content-upload {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .content-upload form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content-upload input,
+  .content-upload textarea {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .content-upload button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .content-listings {
+    margin-top: 20px;
+  }
+  
+  .content-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .content-card button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .content-card button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+  }
+  
+  .error {
+    color: #ff0000;
+  }

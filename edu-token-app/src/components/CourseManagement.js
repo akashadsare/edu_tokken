@@ -1,51 +1,29 @@
-// src/components/CourseManagement.js
-
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { Core } from '@quicknode/sdk';
+import { QUICKNODE_URL } from '../config';
 
 const CourseManagement = ({ token }) => {
-    const [courseName, setCourseName] = useState('');
-    const [tokensEarned, setTokensEarned] = useState('');
-    const [courses, setCourses] = useState([]);
+    useEffect(() => {
+        const core = new Core({
+            endpointUrl: QUICKNODE_URL,
+        });
 
-    const handleCreateCourse = async () => {
-        try {
-            await axios.post('http://localhost:5000/courses', { name: courseName, tokensEarned: Number(tokensEarned) }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            alert('Course created successfully!');
-            fetchCourses(); // Refresh course list
-        } catch (error) {
-            alert(error.response.data);
-        }
-    };
+        const fetchLatestBlock = async () => { // Fixed the function name here
+            try {
+                const latestBlock = await core.eth.getBlock('latest');
+                console.log("Latest Block:", latestBlock);
+            } catch (error) {
+                console.error("Error fetching latest block:", error);
+            }
+        };
 
-    const fetchCourses = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/courses', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setCourses(response.data);
-        } catch (error) {
-            console.error(error);
-            alert('Failed to fetch courses');
-        }
-    };
+        fetchLatestBlock();
+    }, [token]);
 
     return (
         <div>
-            <h2>Create Course</h2>
-            <input type="text" placeholder="Course Name" onChange={(e) => setCourseName(e.target.value)} />
-            <input type="number" placeholder="Tokens Earned" onChange={(e) => setTokensEarned(e.target.value)} />
-            <button onClick={handleCreateCourse}>Create Course</button>
-
-            <h3>Your Courses</h3>
-            <button onClick={fetchCourses}>Refresh Courses</button>
-            <ul>
-                {courses.map((course) => (
-                    <li key={course._id}>{course.name} - Earn Tokens: {course.tokensEarned}</li>
-                ))}
-            </ul>
+            <h2>Course Management</h2>
+            <p>Token: {token}</p>
         </div>
     );
 };

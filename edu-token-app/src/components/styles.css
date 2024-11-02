@@ -1,0 +1,80 @@
+/* Add these styles to your existing styles.css */
+
+/* Header & Navigation Styles */
+.header {
+    background: #0073e6;
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-item {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+.nav-item:hover {
+    background: #005bb5;
+}
+
+.wallet-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.address {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.connect-wallet-btn {
+    background: #fff;
+    color: #0073e6;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.connect-wallet-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+.nav-item.logout {
+    background: rgba(255, 68, 68, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-item.logout:hover {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+/* Active state for navigation items */
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: bold;
+}

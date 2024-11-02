@@ -1,0 +1,36 @@
+/* src/styles/blockchain.css */
+.wallet-container,
+.transaction-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px;
+}
+
+.balance-section {
+    margin-bottom: 20px;
+}
+
+.transaction -list {
+    margin-top: 20px;
+}
+
+.transaction-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.error-message {
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: #00ff00;
+    margin-top: 10px;
+}

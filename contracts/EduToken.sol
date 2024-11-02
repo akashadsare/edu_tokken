@@ -1,26 +1,26 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
-contract EduToken {
-    string public name = "EduToken";
-    string public symbol = "EDU";
-    uint8 public decimals = 18;
-    uint256 public totalSupply;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract EduToken is ERC20, Ownable {
+    mapping(address => bool) public isEducator;
+    mapping(address => bool) public isStudent;
     
-    mapping(address => uint256) public balanceOf;
-    
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    
-    constructor(uint256 _initialSupply) {
-        totalSupply = _initialSupply * 10 ** uint256(decimals);
-        balanceOf[msg.sender] = totalSupply;
+    constructor() ERC20("Education Token", "EDU") {
+        _mint(msg.sender, 1000000 * 10 ** decimals());
     }
-
-    function transfer(address _to, uint256 _value) public returns (bool success) {
-        require(balanceOf[msg.sender] >= _value, "Insufficient balance");
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
-        emit Transfer(msg.sender, _to, _value);
-        return true;
+    
+    function registerAsEducator() external {
+        isEducator[msg.sender] = true;
+    }
+    
+    function registerAsStudent() external {
+        isStudent[msg.sender] = true;
+    }
+    
+    function mintTokens(address to, uint256 amount) external onlyOwner {
+        _mint(to, amount);
     }
 }
